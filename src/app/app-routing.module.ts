@@ -3,11 +3,13 @@ import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from './login/login.component';
 import {ProjectsComponent} from './projects/projects.component';
 import {AuthGuard} from './auth.guard';
+import { ProjectDetailsComponent } from './project-details/project-details.component';
 
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
+  { path: 'projects/:id', component: ProjectDetailsComponent, canActivate: [AuthGuard]},
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

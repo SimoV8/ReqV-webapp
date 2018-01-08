@@ -1,0 +1,35 @@
+<h1>Your Projects</h1>
+
+<div id="projects-container">
+
+  <div *ngIf="loading">
+    <i class='fa fa-spinner fa-spin'></i> Loading...
+  </div>
+
+  <div *ngIf="!loading && projects.length == 0">
+    You don't have any project yet, create one!
+  </div>
+
+  <div class="row">
+    <div class="col-md-4" *ngFor="let project of projects">
+      <div class="card border-primary mb-3" >
+        <div class="card-body text-dark">
+          <a routerLink="/projects/{{project.id}}">
+            <h4 class="card-title">{{ project.name }}</h4>
+          </a>
+          <p class="card-text">{{ project.description }}</p>
+          <p class="card-text"><b>Type:</b> {{ project.type.name }}</p>
+        </div>
+        <div class="card-footer text-right">
+          <a href="#" class="card-link text-primary">Edit</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<app-project-dialog></app-project-dialog>
+
+
+
