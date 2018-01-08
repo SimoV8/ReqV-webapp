@@ -23,11 +23,13 @@ export class LoginComponent implements OnInit {
     private alertService: AlertService) { }
 
   ngOnInit() {
-    // reset login status
-    this.authenticationService.logout();
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/projects';
+
+    if (this.authenticationService.isAuthenticated()) {
+      this.router.navigate([this.returnUrl]);
+    }
   }
 
   login() {
@@ -37,7 +39,7 @@ export class LoginComponent implements OnInit {
         data => {
           this.alertService.success('Login succesful!');
           this.loading = false;
-          this.router.navigate(['/projects']);
+          this.router.navigate([this.returnUrl]);
         },
         error => {
           console.log(error);

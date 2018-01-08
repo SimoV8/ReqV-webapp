@@ -5,7 +5,7 @@
     <a class="navbar-brand" href="#">ReqV</a>
     <ul class="navbar-nav navbar-right" *ngIf="authenticationService.isAuthenticated()">
       <li class="nav-item">
-        <a class="nav-link" onclick="logout()" href="/" >Logout</a>
+        <a class="nav-link" (click)="logout()" routerLink="/" >Logout</a>
       </li>
     </ul>
 
