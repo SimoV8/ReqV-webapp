@@ -34,6 +34,14 @@ export class ProjectService {
       );
   }
 
+  /** GET project */
+  getProject(id): Observable<Project> {
+    return this.http.get<Project>(this.projectsUrl + '/' + id, httpOptions)
+      .pipe(
+        catchError(this.handleError('getProjects', null))
+      );
+  }
+
   /** POST new project */
   createProject(project: Project): Observable<HttpResponse<Project>> {
     return this.http.post<Project>(this.projectsUrl, project, {

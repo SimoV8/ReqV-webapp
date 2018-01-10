@@ -2,7 +2,7 @@
 <nav class="navbar navbar-default navbar-dark bg-dark">
   <div class="container">
 
-    <a class="navbar-brand" href="#">ReqV</a>
+    <a class="navbar-brand" routerLink="/">ReqV</a>
     <ul class="navbar-nav navbar-right" *ngIf="authenticationService.isAuthenticated()">
       <li class="nav-item">
         <a class="nav-link" (click)="logout()" routerLink="/" >Logout</a>

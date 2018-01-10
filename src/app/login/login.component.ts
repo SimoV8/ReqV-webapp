@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import {AuthenticationService} from '../authentication.service';
-import {AlertService} from '../alert/alert.service';
+import { AuthenticationService } from '../services/authentication.service';
+import { AlertService } from '../alert/alert.service';
 
 
 @Component({

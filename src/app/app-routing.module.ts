@@ -9,7 +9,7 @@ import { ProjectDetailsComponent } from './project-details/project-details.compo
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
-  { path: 'projects/:id', component: ProjectDetailsComponent, canActivate: [AuthGuard]},
+  { path: 'projects/:projectId', component: ProjectDetailsComponent, canActivate: [AuthGuard]},
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

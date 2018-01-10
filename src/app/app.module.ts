@@ -13,9 +13,10 @@ import { AlertComponent } from './alert/alert.component';
 import { ProjectDialogComponent } from './project-dialog/project-dialog.component';
 
 // Services
-import { AuthenticationService } from './authentication.service';
+import { AuthenticationService } from './services/authentication.service';
 import { AlertService } from './alert/alert.service';
-import { ProjectService } from './projects/project.service';
+import { ProjectService } from './services/project.service';
+import { RequirementService } from './services/requirement.service';
 
 // Guards
 import {AuthGuard} from './auth.guard';
@@ -51,6 +52,7 @@ import { ProjectDetailsComponent } from './project-details/project-details.compo
     multi: true
     },
     ProjectService,
+    RequirementService,
   ],
   bootstrap: [ AppComponent ]
 })
