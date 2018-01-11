@@ -19,12 +19,16 @@ export class RequirementService {
     return this.http.get<Requirement[]>(this.requirementsUrl, {params: params});
   }
 
-  uploadFile(file: File, projectId: number) {
+  updateRequirement(req: Requirement): Observable<Requirement> {
+    return this.http.put<Requirement>(this.requirementsUrl, req);
+  }
+
+  uploadFile(file: File, projectId: number): Observable<Requirement[]> {
     const formData = new FormData();
     formData.append('file', file, file.name);
     formData.append('pId', projectId.toString());
 
-    return this.http.post(this.reqFileUrl, formData, { observe: 'response' });
+    return this.http.post<Requirement[]>(this.reqFileUrl, formData);
 
   }
 

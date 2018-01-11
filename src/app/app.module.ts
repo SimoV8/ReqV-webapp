@@ -11,6 +11,8 @@ import { LoginComponent } from './login/login.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { AlertComponent } from './alert/alert.component';
 import { ProjectDialogComponent } from './project-dialog/project-dialog.component';
+import { ProjectDetailsComponent } from './project-details/project-details.component';
+import { RequirementDetailsComponent } from './requirement-details/requirement-details.component';
 
 // Services
 import { AuthenticationService } from './services/authentication.service';
@@ -23,7 +25,6 @@ import {AuthGuard} from './auth.guard';
 
 // Http Interceptor
 import { JwtInterceptor } from './jwt.interceptor.js';
-import { ProjectDetailsComponent } from './project-details/project-details.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { ProjectDetailsComponent } from './project-details/project-details.compo
     ProjectsComponent,
     ProjectDialogComponent,
     ProjectDetailsComponent,
+    RequirementDetailsComponent,
   ],
   imports: [
     BrowserModule,
