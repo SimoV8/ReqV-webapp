@@ -12,7 +12,10 @@
       <div class="modal-body">
         <div class="form-group">
           <label for="reqTextarea">Requirement</label>
-          <textarea class="form-control" id="reqTextarea" rows="2" [(ngModel)]="requirement.text"></textarea>
+          <textarea class="form-control" id="reqTextarea" rows="2"
+                    #reqTextarea (click)="getCaretPos(reqTextarea)" (keyup)="getCaretPos(reqTextarea)"
+                    [(ngModel)]="requirement.text" ></textarea>
+          <p class="small pull-right">line {{caretPos[0]}}:{{caretPos[1]}}</p>
         </div>
 
         <div class="form-group">

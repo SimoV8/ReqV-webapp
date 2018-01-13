@@ -18,6 +18,8 @@ export class RequirementDetailsComponent implements OnInit {
 
   loading = false;
 
+  caretPos = [1, 1];
+
   constructor(private requirementService: RequirementService,
               private alertService: AlertService) { }
 
@@ -47,6 +49,21 @@ export class RequirementDetailsComponent implements OnInit {
         this.alertService.error('Error during requirement update, try again.');
       }
     );
+  }
+
+  getCaretPos(oField) {
+    if (!isNaN(oField.selectionStart)) {
+      let i = this.requirement.text.indexOf('\n', 0);
+      let j = 0;
+      let row = 1;
+      while (i >= 0 && i < oField.selectionStart) {
+        j = i + 1;
+        i = this.requirement.text.indexOf('\n', i + 1);
+        ++row;
+      }
+      this.caretPos[0] = row;
+      this.caretPos[1] = oField.selectionStart - j;
+    }
   }
 
 }
