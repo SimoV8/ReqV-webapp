@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Requirement } from '../models/requirement';
 import { Observable } from 'rxjs/Observable';
 
@@ -8,6 +8,7 @@ export class RequirementService {
 
   private requirementsUrl = 'api/requirements';
   private reqFileUrl = 'api/requirements/file';
+  private reqTranslateUrl = 'api/requirements/translate';
 
 
   constructor(private http: HttpClient) { }
@@ -30,6 +31,13 @@ export class RequirementService {
 
     return this.http.post<Requirement[]>(this.reqFileUrl, formData);
 
+  }
+
+  getTranslation(projectId: number): Observable<HttpResponse<Blob>> {
+    const params = new HttpParams().set('pId', projectId.toString());
+
+    const options = {params: params, observe: 'response' as 'response', responseType: 'blob' as 'blob'};
+    return this.http.get(this.reqTranslateUrl, options);
   }
 
 }

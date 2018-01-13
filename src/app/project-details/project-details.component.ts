@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Project } from '../models/project';
-import { ReqState, Requirement } from '../models/requirement';
+import { Requirement } from '../models/requirement';
 import { ProjectService } from '../services/project.service';
 import { RequirementService } from '../services/requirement.service';
 import { AlertService } from '../alert/alert.service';
-import { errorObject } from 'rxjs/util/errorObject';
+
+import { saveAs } from 'file-saver/FileSaver';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class ProjectDetailsComponent implements OnInit {
   requirements: Requirement[];
 
   uploadLoading = false;
+  translateLoading = false;
   selectedRequirement = new Requirement();
 
   constructor(private route: ActivatedRoute,
@@ -73,6 +75,22 @@ export class ProjectDetailsComponent implements OnInit {
     if (index >= 0) {
       this.requirements[index] = req;
     }
+  }
+
+  getTranslation() {
+    this.translateLoading = true;
+    this.requirementService.getTranslation(this.projectId).subscribe(
+      response => {
+        const blob = new Blob([response.body], { type: 'text/plain;charset=utf-8' });
+        saveAs(blob, 'output.nusmv');
+        this.translateLoading = false;
+      },
+      error => {
+        this.alertService.error(error);
+        console.log(error);
+        this.translateLoading = false;
+      }
+    );
   }
 
 }
