@@ -10,14 +10,14 @@
       <i class='fa fa-spinner fa-spin' *ngIf="uploadLoading"></i>
       &nbsp;Upload File
     </button>
-    <button type="button" class="btn btn-primary pull-right btn-top">
-      <i class="fa fa-play" aria-hidden="true"></i>
-      &nbsp;Validate
-    </button>
     <button type="button" class="btn btn-primary pull-right btn-top" [disabled]="translateLoading" (click)="getTranslation()">
       <i class="fa fa-download" aria-hidden="true" *ngIf="!translateLoading"></i>
       <i class='fa fa-spinner fa-spin' *ngIf="translateLoading"></i>
       &nbsp;Translate
+    </button>
+    <button type="button" class="btn btn-primary pull-right btn-top" [disabled]="true">
+      <i class="fa fa-play" aria-hidden="true"></i>
+      &nbsp;Validate
     </button>
   </div>
 

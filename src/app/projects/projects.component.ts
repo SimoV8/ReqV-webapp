@@ -26,4 +26,8 @@ export class ProjectsComponent implements OnInit {
     });
   }
 
+  addProject(project: Project) {
+    this.projects.push(project);
+  }
+
 }

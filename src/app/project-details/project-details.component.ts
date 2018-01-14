@@ -53,7 +53,7 @@ export class ProjectDetailsComponent implements OnInit {
       this.requirementService.uploadFile(fileList[0], this.projectId).subscribe(
         data => {
           this.uploadLoading = false;
-            this.requirements = this.requirements.concat(data);
+            this.requirements = this.requirements.concat(data.map(req => new Requirement().clone(req)));
             this.alertService.success('File uploaded correctly!');
         },
         error => {
