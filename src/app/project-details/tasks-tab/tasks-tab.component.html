@@ -1,0 +1,36 @@
+<div class="tab-header clearfix">
+    <button type="button" class="btn btn-primary pull-right" [disabled]="translateLoading" (click)="getTranslation()">
+      <i class="fa fa-download" aria-hidden="true" *ngIf="!translateLoading"></i>
+      <i class='fa fa-spinner fa-spin' *ngIf="translateLoading"></i>
+      &nbsp;Translate
+    </button>
+    <button type="button" class="btn btn-primary pull-right" [disabled]="!taskIsRunning" (click)="consistencyCheck()">
+      <i class="fa fa-play" aria-hidden="true"></i>
+      &nbsp;Validate
+    </button>
+</div>
+<div>
+  <div class="card" *ngFor="let task of tasks">
+    <div class="card-body">
+        <h4 class="card-title">{{task.description}}
+          <i class="fa fa-circle pull-right"
+             [ngClass]="{'status-success': task.success,
+                         'status-fail': task.fail,
+                         'status-running': task.running
+                        }"
+              title="{{task.status}}"></i>
+        </h4>
+
+      <h6 class="card-subtitle mb-2 text-muted">{{task.timestamp}}</h6>
+
+      <div class="card-text">
+        <div>
+          <label >Logs:</label>
+          <textarea class="form-control" readonly="readonly">{{task.log}}</textarea>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+

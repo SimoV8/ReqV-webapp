@@ -13,12 +13,15 @@ import { AlertComponent } from './alert/alert.component';
 import { ProjectDialogComponent } from './project-dialog/project-dialog.component';
 import { ProjectDetailsComponent } from './project-details/project-details.component';
 import { RequirementDetailsComponent } from './requirement-details/requirement-details.component';
+import { RequirementsTabComponent } from './project-details/requirements-tab/requirements-tab.component';
+import { TasksTabComponent } from './project-details/tasks-tab/tasks-tab.component';
 
 // Services
 import { AuthenticationService } from './services/authentication.service';
 import { AlertService } from './alert/alert.service';
 import { ProjectService } from './services/project.service';
 import { RequirementService } from './services/requirement.service';
+import { TaskService } from './services/task.service';
 
 // Guards
 import {AuthGuard} from './auth.guard';
@@ -36,6 +39,8 @@ import { JwtInterceptor } from './jwt.interceptor.js';
     ProjectDialogComponent,
     ProjectDetailsComponent,
     RequirementDetailsComponent,
+    RequirementsTabComponent,
+    TasksTabComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +60,7 @@ import { JwtInterceptor } from './jwt.interceptor.js';
     },
     ProjectService,
     RequirementService,
+    TaskService,
   ],
   bootstrap: [ AppComponent ]
 })

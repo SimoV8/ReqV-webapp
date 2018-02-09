@@ -33,11 +33,4 @@ export class RequirementService {
 
   }
 
-  getTranslation(projectId: number): Observable<HttpResponse<Blob>> {
-    const params = new HttpParams().set('pId', projectId.toString());
-
-    const options = {params: params, observe: 'response' as 'response', responseType: 'blob' as 'blob'};
-    return this.http.get(this.reqTranslateUrl, options);
-  }
-
 }
