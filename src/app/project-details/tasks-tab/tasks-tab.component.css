@@ -1,0 +1,29 @@
+.tab-header {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.btn {
+  margin-left: 0.5em;
+}
+
+.card {
+  margin-bottom: 1em;
+}
+
+.status-success {
+  color: #469408;
+}
+
+.status-fail {
+  color: #D9230F;
+}
+
+.status-running {
+  color: #469408;
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% { opacity: 0.0; }
+}
