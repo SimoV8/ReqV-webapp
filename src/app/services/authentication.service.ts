@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import 'rxjs/add/operator/map';
-import { tokenNotExpired } from 'angular2-jwt';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs/Observable';
 
 const CURRENT_USER = 'currentUser';
 
 @Injectable()
 export class AuthenticationService {
+
+  jwtHelper = new JwtHelperService();
 
   constructor(private http: HttpClient) { }
 
@@ -37,7 +39,7 @@ export class AuthenticationService {
     const token = this.getToken();
     // return a boolean reflecting
     // whether or not the token is expired
-    return tokenNotExpired(null, token);
+    return !this.jwtHelper.isTokenExpired(token);
   }
 
   logout() {
