@@ -11,6 +11,7 @@ export class Requirement {
   project: number;
   errorDescription: string;
   state: ReqState;
+  disabled: boolean;
 
   clone(req: Requirement): Requirement {
     this.id = req.id;
@@ -18,6 +19,7 @@ export class Requirement {
     this.project = req.project;
     this.errorDescription = req.errorDescription;
     this.state = req.state;
+    this.disabled = req.disabled;
     return this;
   }
 

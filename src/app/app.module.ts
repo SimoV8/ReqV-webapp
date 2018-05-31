@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // Components
 import { AppComponent } from './app.component';
@@ -48,6 +50,8 @@ import { JwtInterceptor } from './jwt.interceptor.js';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    NgxDatatableModule,
+    NgbModule.forRoot(),
   ],
   providers: [
     AuthenticationService,

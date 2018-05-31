@@ -1,13 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Requirement } from '../../models/requirement';
-import { ActivatedRoute } from '@angular/router';
 import { RequirementService } from '../../services/requirement.service';
 import { AlertService } from '../../alert/alert.service';
+import { DatatableComponent } from '@swimlane/ngx-datatable';
 
 @Component({
   selector: 'app-requirements-tab',
   templateUrl: './requirements-tab.component.html',
-  styleUrls: ['./requirements-tab.component.css']
+  styleUrls: ['./requirements-tab.component.css' ]
 })
 export class RequirementsTabComponent implements OnInit {
 
@@ -17,6 +17,14 @@ export class RequirementsTabComponent implements OnInit {
   selectedRequirement = new Requirement();
 
   uploadLoading = false;
+  progressMessage = 'Loading...';
+
+  searchValue = '';
+
+  rows = [];
+  selected = [];
+
+  @ViewChild(DatatableComponent) table: DatatableComponent;
 
   constructor(private requirementService: RequirementService,
               private alertService: AlertService) { }
@@ -25,8 +33,10 @@ export class RequirementsTabComponent implements OnInit {
     this.getRequirements();
   }
 
-  requirementDetails(req: Requirement) {
-    this.selectedRequirement = new Requirement().clone(req);
+  requirementDetails(event) {
+    if (event.type === 'dblclick') {
+      this.selectedRequirement = new Requirement().clone(event.row);
+    }
   }
 
   onChange(req: Requirement) {
@@ -34,11 +44,16 @@ export class RequirementsTabComponent implements OnInit {
     if (index >= 0) {
       this.requirements[index] = req;
     }
+
+    this.updateFilter(null);
   }
 
   getRequirements() {
     this.requirementService.getRequirements(this.projectId).subscribe(
-      requirements => this.requirements = requirements.map(req => new Requirement().clone(req)));
+      requirements => {
+        this.requirements = requirements.map(req => new Requirement().clone(req));
+        this.rows = this.requirements;
+      });
   }
 
   fileChange(event) {
@@ -61,5 +76,58 @@ export class RequirementsTabComponent implements OnInit {
 
     }
   }
+
+  getRowClass(req) {
+    return {
+      'row-green': req.compliant,
+      'row-red': req.error,
+      'row-yellow': req.waning,
+      'row-disabled': req.disabled
+    };
+  }
+
+  disableSelected(disabled: boolean) {
+    this.uploadLoading = true;
+    const reqs = this.selected;
+    let loaded = 0;
+    reqs.forEach(req => {
+      req.disabled = disabled;
+      this.requirementService.updateRequirement(req).subscribe(
+        data => {
+          loaded++;
+          if (loaded === reqs.length) {
+            this.uploadLoading = false;
+            this.onChange(new Requirement().clone(data));
+          }
+        },
+        error => { this.alertService.error(error); });
+    });
+  }
+
+  deleteSelected() {
+
+  }
+
+  updateFilter(event) {
+    const val = this.searchValue.toLowerCase();
+
+    // filter our data
+    const temp = this.requirements.filter(function(req) {
+      return req.text.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+
+    // update the rows
+    this.rows = temp;
+
+    if (event != null) {
+      // Whenever the filter changes, always go back to the first page
+      this.table.offset = 0;
+    }
+
+    // Remove previously selected items
+    this.selected = [];
+
+  }
+
 
 }
