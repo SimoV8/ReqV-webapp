@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
-import 'rxjs/add/operator/map';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 const CURRENT_USER = 'currentUser';
 
