@@ -27,6 +27,10 @@ export class TaskService {
     return this.http.get<Task>(this.tasksUrl(projectId, 'consistencyCheck'));
   }
 
+  public performComputeMuc(projectId: number): Observable<Task> {
+    return this.http.get<Task>(this.tasksUrl(projectId, 'computeMUC'));
+  }
+
   private tasksUrl(projectId: number, taskName = '') {
     const url = 'api/projects/{pid}/tasks/' + taskName;
     return url.replace('{pid}', projectId.toString());

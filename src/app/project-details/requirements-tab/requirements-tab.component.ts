@@ -22,7 +22,7 @@ export class RequirementsTabComponent implements OnInit {
   searchValue = '';
 
   rows = [];
-  selected = [];
+  selected: Requirement[] = [];
 
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
@@ -105,7 +105,26 @@ export class RequirementsTabComponent implements OnInit {
   }
 
   deleteSelected() {
-
+    this.uploadLoading = true;
+    const reqs = this.selected;
+    let loaded = 0;
+    reqs.forEach(req => {
+      this.requirementService.deleteRequirement(req.id).subscribe(
+        response => {
+          const index = this.requirements.findIndex(r => r.id === req.id);
+          if (index >= 0) {
+            this.requirements.splice(index, 1);
+          }
+          loaded++;
+          if (loaded === reqs.length) {
+            this.uploadLoading = false;
+            this.updateFilter(null);
+          }
+        },
+        error => {
+          this.alertService.error(error);
+        });
+    });
   }
 
   updateFilter(event) {

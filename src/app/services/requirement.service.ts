@@ -24,6 +24,10 @@ export class RequirementService {
     return this.http.put<Requirement>(this.requirementsUrl, req);
   }
 
+  deleteRequirement(id: number): Observable<HttpResponse<any>> {
+    return this.http.delete(this.requirementsUrl  + '/' + id, {observe: 'response'});
+  }
+
   uploadFile(file: File, projectId: number): Observable<Requirement[]> {
     const formData = new FormData();
     formData.append('file', file, file.name);

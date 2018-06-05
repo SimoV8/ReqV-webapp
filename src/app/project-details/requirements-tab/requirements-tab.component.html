@@ -10,19 +10,27 @@
     <div class="hidden"><input type="file" #fileInput (change)="fileChange($event)"/></div>
 
     <div class="btn-group" role="group" aria-label="Basic example">
-      <button type="button" class="btn btn-secondary" (click)="disableSelected(false)"><i class="fa fa-check"></i>&nbsp;Enable</button>
-      <button type="button" class="btn btn-secondary" (click)="disableSelected(true)"><i class="fa fa-minus"></i>&nbsp;Disable</button>
-      <button type="button" class="btn btn-secondary" (click)="deleteSelected()"><i class="fa fa-trash"></i>&nbsp;Delete</button>
+      <button type="button" class="btn btn-secondary" (click)="disableSelected(false)"
+              [disabled]="selected.length == 0">
+        <i class="fa fa-check"></i>&nbsp;Enable
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="disableSelected(true)"
+              [disabled]="selected.length == 0">
+        <i class="fa fa-minus"></i>&nbsp;Disable
+      </button>
+      <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteConfirmationModal"
+              [disabled]="selected.length == 0">
+        <i class="fa fa-trash"></i>&nbsp;Delete
+      </button>
     </div>
 
 
-
-    <button type="button" class="btn btn-outline-primary" (click)="fileInput.click()"
-            [disabled]="uploadLoading">
-      <i class="fa fa-plus" aria-hidden="true" *ngIf="!uploadLoading"></i>
-      <i class='fa fa-spinner fa-spin' *ngIf="uploadLoading"></i>
-      &nbsp;Add Requirement
-    </button>
+    <a routerLink="/projects/{{projectId}}/addReq">
+      <button type="button" class="btn btn-outline-primary" [disabled]="uploadLoading">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        &nbsp;Add Requirement
+      </button>
+    </a>
 
     <button type="button" class="btn btn-outline-primary" (click)="fileInput.click()"
             [disabled]="uploadLoading">
@@ -71,3 +79,24 @@
 </ngx-datatable>
 
 <app-requirement-details [req]="selectedRequirement" (update)="onChange($event)"></app-requirement-details>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Confirmation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete {{ selected.length }} requirements?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteSelected()">Delete</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
