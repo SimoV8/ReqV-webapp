@@ -30,6 +30,8 @@ import {AuthGuard} from './auth.guard';
 
 // Http Interceptor
 import { JwtInterceptor } from './jwt.interceptor.js';
+import { PatternWizardComponent } from './pattern-wizard/pattern-wizard.component';
+import { ExpressionWizardComponent } from './pattern-wizard/expression-wizard/expression-wizard.component';
 
 
 @NgModule({
@@ -43,6 +45,8 @@ import { JwtInterceptor } from './jwt.interceptor.js';
     RequirementDetailsComponent,
     RequirementsTabComponent,
     TasksTabComponent,
+    PatternWizardComponent,
+    ExpressionWizardComponent,
   ],
   imports: [
     BrowserModule,
