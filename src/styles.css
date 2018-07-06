@@ -8,6 +8,10 @@
   opacity: .5;
 }
 
+.hline {
+  border-bottom: 1px solid #373a3c;
+  margin-bottom: 0.5em;
+}
 
 
 .row-green {

@@ -1,0 +1,9 @@
+<div class="pl-2" style="border-left: 1px solid #eeeeee; height: 100%;">
+  <p>{{item.text}}</p>
+  <div>
+      <fieldset *ngFor="let expr of exprs; let i = index; trackBy: customTrackBy">
+        <label class="form-control-label" for="exprInput">Expr {{i + 1}}</label>
+        <input class="form-control" id="exprInput" [(ngModel)]="exprs[i]" (keyup)="update()">
+      </fieldset>
+  </div>
+</div>

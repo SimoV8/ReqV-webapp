@@ -20,6 +20,10 @@ export class RequirementService {
     return this.http.get<Requirement[]>(this.requirementsUrl, {params: params});
   }
 
+  createRequirement(req: Requirement): Observable<Requirement> {
+    return this.http.post<Requirement>(this.requirementsUrl, req);
+  }
+
   updateRequirement(req: Requirement): Observable<Requirement> {
     return this.http.put<Requirement>(this.requirementsUrl, req);
   }

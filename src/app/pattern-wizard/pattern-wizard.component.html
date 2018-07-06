@@ -1,0 +1,102 @@
+<h1>New Requirement</h1>
+
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item"><a href="#">Projects</a></li>
+  <li class="breadcrumb-item"><a routerLink="/projects/{{project.id}}">{{ project.name }}</a></li>
+  <li class="breadcrumb-item active">New Requirement</li>
+</ol>
+
+<div class="">
+  <div class="form-group row pb-2">
+    <label class="col-form-label col-sm-2 text-right" for="reqText">Req ID</label>
+    <div class="col-sm-10">
+      <input class="form-control w-auto" type="text" id="reqId" (change)="updateReqId($event)">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-form-label col-sm-2 text-right" for="reqText">Requirement</label>
+    <div class="col-sm-10 pr-5">
+      <input class="form-control w-100" type="text" id="reqText" readonly="" data-cip-id="readOnlyInput"
+             value="{{req}}">
+    </div>
+
+  </div>
+</div>
+
+<div class="row equal">
+  <div class="col-md-6 pl-3 pr-1">
+    <div class="card bg-secondary h-100">
+      <div class="card-body">
+        <h4 class="card-title">Scope
+          <small><i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right"
+                    title="The scope defines when the body of the pattern should hold."></i></small>
+        </h4>
+        <div class="row">
+          <div class="col-md-4 pr-0">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle w-100" type="button"
+                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{selectedScope.name}}
+              </button>
+
+              <ul dropdownMenu class="dropdown-menu" role="menu">
+                <li *ngFor="let scope of scopes" (click)="selectScope(scope)"
+                    class="dropdown-item">{{scope.name}}
+                </li>
+              </ul>
+            </div>
+            <div class="mt-2">
+              <small class="text-justify "><p class="text-muted">{{selectedScope.description}}</p></small>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <app-expression-wizard [item]="selectedScope" (itemChanged)="updateRequirement($event)"></app-expression-wizard>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 pl-1 pr-3">
+    <div class="card bg-secondary h-100">
+      <div class="card-body">
+        <h4 class="card-title">Pattern
+          <small><i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right"
+                            title="The main part of the specification."></i></small>
+        </h4>
+        <div class="row">
+          <div class="col-md-4 pr-0">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle w-100" type="button"
+                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{selectedPattern.name}}
+              </button>
+
+              <ul dropdownMenu class="dropdown-menu" role="menu">
+                <li *ngFor="let pattern of patterns" (click)="selectPattern(pattern)"
+                    class="dropdown-item">{{pattern.name}}
+                </li>
+              </ul>
+            </div>
+            <div class="mt-2">
+              <small class="text-justify"><p class="text-muted">{{selectedPattern.description}}</p></small>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <app-expression-wizard [item]="selectedPattern" (itemChanged)="updateRequirement($event)"></app-expression-wizard>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="pt-3 pr-1">
+    <button class="btn btn-primary float-right" (click)="createRequirement()">Create</button>
+
+</div>
+
+
+
