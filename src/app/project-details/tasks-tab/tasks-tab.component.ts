@@ -15,6 +15,7 @@ export class TasksTabComponent implements OnInit {
   tasks: Task[];
 
   translateLoading = false;
+  validateLoading = false;
   taskIsRunning = false;
 
   constructor(private taskService: TaskService,
@@ -28,7 +29,7 @@ export class TasksTabComponent implements OnInit {
     this.taskService.getTasks(this.projectId).subscribe(
       tasks => {
         this.tasks = tasks.map(t => new Task(t));
-        this.taskIsRunning = this.tasks.every(t => !t.running);
+        this.taskIsRunning = !this.tasks.every(t => !t.running);
         this.tasks.forEach(task => {
           if (task.running) {
             this.checkRunningTask(task);
@@ -55,28 +56,57 @@ export class TasksTabComponent implements OnInit {
 
   consistencyCheck() {
     this.taskIsRunning = true;
+    this.validateLoading = true;
     this.taskService.performConsistencyCheck(this.projectId).subscribe(
       task => {
         this.tasks.unshift(new Task(task));
         this.checkRunningTask(task);
+        this.validateLoading = false;
+      },
+      error => {
+        this.alertService.error(error.message);
+        this.taskIsRunning = false;
+        this.validateLoading = false;
       }
     );
   }
 
-  checkRunningTask(task: Task) {
+  checkRunningTask(task: Task, timeout = 2500) {
     setTimeout(() => {
       this.taskService.getTask(this.projectId, task.id).subscribe(
-        t => {
-          task = new Task(t);
+        response => {
+          task = new Task(response);
+          const index = this.tasks.findIndex( t => t.id === task.id);
+          this.tasks[index] = task;
           if (task.running) {
-            this.checkRunningTask(task);
+            this.checkRunningTask(task, timeout);
           } else {
-            const index = this.tasks.findIndex( x => x.id === task.id);
-            this.tasks[index] = task;
+            this.taskIsRunning = false;
           }
+        },
+        error => {
+          console.log(error);
+          this.taskIsRunning = false;
         }
       );
-    }, 2500);
+    }, timeout);
+  }
+
+  computeMUC() {
+    this.taskIsRunning = true;
+    this.validateLoading = true;
+    this.taskService.performComputeMuc(this.projectId).subscribe(
+      task => {
+        this.tasks.unshift(new Task(task));
+        this.checkRunningTask(task, 5000);
+        this.validateLoading = false;
+      },
+      error => {
+        this.alertService.error(error.message);
+        this.taskIsRunning = false;
+        this.validateLoading = false;
+      }
+    );
   }
 
 }
