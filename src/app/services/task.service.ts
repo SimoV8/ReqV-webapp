@@ -27,8 +27,8 @@ export class TaskService {
     return this.http.get<Task>(this.tasksUrl(projectId, 'consistencyCheck'));
   }
 
-  public performComputeMuc(projectId: number): Observable<Task> {
-    return this.http.get<Task>(this.tasksUrl(projectId, 'computeMUC'));
+  public performFindInconsistency(projectId: number): Observable<Task> {
+    return this.http.get<Task>(this.tasksUrl(projectId, 'findInconsistency'));
   }
 
   private tasksUrl(projectId: number, taskName = '') {

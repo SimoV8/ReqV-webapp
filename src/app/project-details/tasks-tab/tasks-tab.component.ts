@@ -95,7 +95,7 @@ export class TasksTabComponent implements OnInit {
   computeMUC() {
     this.taskIsRunning = true;
     this.validateLoading = true;
-    this.taskService.performComputeMuc(this.projectId).subscribe(
+    this.taskService.performFindInconsistency(this.projectId).subscribe(
       task => {
         this.tasks.unshift(new Task(task));
         this.checkRunningTask(task, 5000);
