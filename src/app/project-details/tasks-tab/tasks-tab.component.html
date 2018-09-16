@@ -30,7 +30,7 @@
           <textarea class="form-control" readonly="readonly" rows="5">{{task.log}}</textarea>
         </div>
         <div *ngIf="task.id === tasks[0].id && task.fail" style="padding-top: 10px">
-          <a href="javascript:void(0);" (click)="computeMUC();">Click here</a> if you want to search for the minimum unsatisfiable core of
+          <a href="javascript:void(0);" (click)="computeMUC();">Click here</a> if you want to search for a minimal unsatisfiable core of
           requirements (Warning: it may take a long time).
         </div>
       </div>
