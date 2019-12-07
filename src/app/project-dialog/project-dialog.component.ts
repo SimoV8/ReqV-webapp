@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { Project, ProjectType } from '../models/project';
+import { Project } from '../models/project';
 import { ProjectService } from '../services/project.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from '../alert/alert.service';
@@ -11,7 +11,7 @@ import { Requirement } from '../models/requirement';
 })
 export class ProjectDialogComponent implements OnInit {
 
-  projectTypes: ProjectType[];
+  projectTypes: string[];
 
   newProjectForm: FormGroup;
 
@@ -67,7 +67,7 @@ export class ProjectDialogComponent implements OnInit {
 
     this.project.name = formModel.name as string;
     this.project.description = formModel.description as string;
-    this.project.type = formModel.type as ProjectType;
+    this.project.type = formModel.type as string;
 
     this.projectService.createProject(this.project).subscribe(
       response => {

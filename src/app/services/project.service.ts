@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { ProjectType, Project } from '../models/project';
+import { Project } from '../models/project';
 import { catchError, tap } from 'rxjs/operators';
 
 const httpOptions = {
@@ -20,8 +20,8 @@ export class ProjectService {
   constructor(private http: HttpClient) { }
 
   /** GET project types */
-  getProjectTypes(): Observable<ProjectType[]> {
-    return this.http.get<ProjectType[]>(this.projectTypesUrl, httpOptions)
+  getProjectTypes(): Observable<string[]> {
+    return this.http.get<string[]>(this.projectTypesUrl, httpOptions)
       .pipe(
         catchError(this.handleError('getProjectsType', [])),
       );
