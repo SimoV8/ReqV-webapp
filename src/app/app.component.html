@@ -1,8 +1,8 @@
 <!-- navbar -->
-<nav class="navbar navbar-default navbar-dark bg-dark">
+<nav class="navbar navbar-default navbar-light bg-light">
   <div class="container">
 
-    <a class="navbar-brand" routerLink="/">ReqV</a>
+    <a class="navbar-brand" routerLink="/"><img width="100px" height="50px" src="assets/img/reqv-logo.jpeg"/></a>
     <ul class="navbar-nav navbar-right" *ngIf="authenticationService.isAuthenticated()">
       <li class="nav-item">
         <a class="nav-link" (click)="logout()" routerLink="/" >Logout</a>
