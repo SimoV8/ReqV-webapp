@@ -3,7 +3,6 @@ import { Project } from '../models/project';
 import { ProjectService } from '../services/project.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from '../alert/alert.service';
-import { Requirement } from '../models/requirement';
 
 @Component({
   selector: 'app-project-dialog',

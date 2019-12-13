@@ -15,15 +15,22 @@
     <li class="nav-item">
       <a class="nav-link" data-toggle="tab" href="#tasks">Tasks</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#settings">Settings</a>
+    </li>
   </ul>
 
   <div class="tab-content">
     <div class="tab-pane fade in active show" id="requirements">
-      <app-requirements-tab [projectId]="projectId"></app-requirements-tab>
+      <app-requirements-tab [project]="project"></app-requirements-tab>
     </div>
 
     <div class="tab-pane fade show" id="tasks">
       <app-tasks-tab [projectId]="projectId"></app-tasks-tab>
+    </div>
+
+    <div class="tab-pane fade show" id="settings">
+      <app-settings-tab [project]="project"></app-settings-tab>
     </div>
   </div>
 </div>

@@ -8,7 +8,6 @@ export class RequirementService {
 
   private requirementsUrl = 'api/requirements';
   private reqFileUrl = 'api/requirements/file';
-  private reqTranslateUrl = 'api/requirements/translate';
 
 
   constructor(private http: HttpClient) { }
@@ -32,13 +31,21 @@ export class RequirementService {
     return this.http.delete(this.requirementsUrl  + '/' + id, {observe: 'response'});
   }
 
-  uploadFile(file: File, projectId: number): Observable<Requirement[]> {
+  uploadFile(file: File, projectId: number, format: string): Observable<Requirement[]> {
     const formData = new FormData();
     formData.append('file', file, file.name);
     formData.append('pId', projectId.toString());
+    formData.append('format', format);
 
     return this.http.post<Requirement[]>(this.reqFileUrl, formData);
+  }
 
+  exportFile(projectId: number, format: string): Observable<HttpResponse<Blob>> {
+    const formData = new FormData();
+    const options = {observe: 'response' as 'response',
+                      responseType: 'blob' as 'blob',
+                      params: {pId: projectId.toString(), format: format}};
+    return this.http.get(this.reqFileUrl, options);
   }
 
 }

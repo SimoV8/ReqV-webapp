@@ -16,6 +16,7 @@ import { ProjectDialogComponent } from './project-dialog/project-dialog.componen
 import { ProjectDetailsComponent } from './project-details/project-details.component';
 import { RequirementDetailsComponent } from './requirement-details/requirement-details.component';
 import { RequirementsTabComponent } from './project-details/requirements-tab/requirements-tab.component';
+import { SettingsTabComponent } from './project-details/settings-tab/settings-tab.component';
 import { TasksTabComponent } from './project-details/tasks-tab/tasks-tab.component';
 
 // Services
@@ -45,8 +46,10 @@ import { ExpressionWizardComponent } from './pattern-wizard/expression-wizard/ex
     RequirementDetailsComponent,
     RequirementsTabComponent,
     TasksTabComponent,
+    SettingsTabComponent,
     PatternWizardComponent,
     ExpressionWizardComponent,
+    SettingsTabComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,66 @@
+<div class="container">
+  <div>
+    <h3 class="section-title">Project Details</h3>
+    <hr class="my-4">
+    <form [formGroup]="editProjectForm">
+      <div class="form-group">
+        <label class="form-control-label" for="project-name">Name</label>
+        <input class="form-control max-width" id="project-name" type="text" formControlName="name"
+               [ngClass]="{'is-valid': name.valid, 'is-invalid': name.invalid && (name.dirty || name.touched)}">
+        <div [hidden]="name.valid || name .pristine"
+             class="alert alert-danger max-width">
+          Name must be at least 3 characters long
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="project-description">Description</label>
+        <textarea class="form-control description"
+                  id="project-description"
+                  rows="2"
+                  formControlName="description">
+            </textarea>
+      </div>
+      <div class="form-group">
+        <p id="project-type" *ngIf="project">Type: <b>{{project.type}}</b></p>
+      </div>
+      <button type="submit" class="btn  btn-outline-primary" [disabled]="!editProjectForm.valid || loading" (click)="editProject()">
+        <i class="fa fa-spinner fa-spin" aria-hidden="true" *ngIf="loading">&nbsp;</i>Edit
+      </button>
+    </form>
+  </div>
+  <h3 class="section-title">Import/Export</h3>
+  <hr class="my-4">
+  <div>
+    <h4>Import</h4>
+    <p>Import a file containing the list of requirements in one of the following formats:</p>
+    <select class="form-control custom-select max-width" style="margin-right: 1em;" [(ngModel)]="importType">
+      <option *ngFor="let opt of importChoices" [value]="opt.value">{{opt.label}}</option>
+    </select>
+    <div class="hidden"><input type="file" #fileInput (change)="fileChange($event)"/></div>
+    <button type="button" class="btn btn-outline-primary" (click)="fileInput.click()"
+            [disabled]="uploadLoading">
+      <i class="fa fa-upload" aria-hidden="true" *ngIf="!uploadLoading"></i>
+      <i class='fa fa-spinner fa-spin' *ngIf="uploadLoading"></i>
+      &nbsp;Upload File
+    </button>
+
+    <h4 style="padding-top: 1em">Export</h4>
+    <p>Export the requirements set in one of the following formats:</p>
+    <select class="form-control custom-select max-width" style="margin-right: 1em;" [(ngModel)]="exportType" >
+      <option *ngFor="let opt of exportChoices" [value]="opt.value">{{opt.label}}</option>
+    </select>
+    <button type="button" class="btn btn-outline-primary"
+            [disabled]="downloadLoading" (click)="exportFile()">
+      <i class="fa fa-download" aria-hidden="true" *ngIf="!downloadLoading"></i>
+      <i class='fa fa-spinner fa-spin' *ngIf="downloadLoading"></i>
+      &nbsp;Download File
+    </button>
+  </div>
+  <!--<div>
+    <h3 class="section-title">Delete Project</h3>
+    <hr class="my-4">
+    <p>Once you delete a project there is no going back. Please be certain.</p>
+    <button type="button" class="btn btn-primary">Delete Project</button>
+  </div>-->
+</div>
+

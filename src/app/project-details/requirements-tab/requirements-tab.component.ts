@@ -3,6 +3,7 @@ import { Requirement } from '../../models/requirement';
 import { RequirementService } from '../../services/requirement.service';
 import { AlertService } from '../../alert/alert.service';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
+import {Project} from '../../models/project';
 
 @Component({
   selector: 'app-requirements-tab',
@@ -11,9 +12,7 @@ import { DatatableComponent } from '@swimlane/ngx-datatable';
 })
 export class RequirementsTabComponent implements OnInit {
 
-  @Input() projectId: number;
-
-  requirements: Requirement[];
+  _project: Project;
   selectedRequirement = new Requirement();
 
   uploadLoading = false;
@@ -30,7 +29,14 @@ export class RequirementsTabComponent implements OnInit {
               private alertService: AlertService) { }
 
   ngOnInit() {
-    this.getRequirements();
+  }
+
+  @Input()
+  set project(val: Project) {
+    if (val != null) {
+      this._project = val;
+      this.getRequirements();
+    }
   }
 
   requirementDetails(event) {
@@ -40,41 +46,20 @@ export class RequirementsTabComponent implements OnInit {
   }
 
   onChange(req: Requirement) {
-    const index = this.requirements.findIndex(r => r.id === req.id);
+    const index = this._project.requirements.findIndex(r => r.id === req.id);
     if (index >= 0) {
-      this.requirements[index] = req;
+      this._project.requirements[index] = req;
     }
 
     this.updateFilter(null);
   }
 
   getRequirements() {
-    this.requirementService.getRequirements(this.projectId).subscribe(
+    this.requirementService.getRequirements(this._project.id).subscribe(
       requirements => {
-        this.requirements = requirements.map(req => new Requirement().clone(req));
-        this.rows = this.requirements;
+        this._project.requirements = requirements.map(req => new Requirement().clone(req));
+        this.rows = this._project.requirements;
       });
-  }
-
-  fileChange(event) {
-    const fileList: FileList = event.target.files;
-
-    if (fileList.length > 0) {
-      this.uploadLoading = true;
-      this.requirementService.uploadFile(fileList[0], this.projectId).subscribe(
-        data => {
-          this.uploadLoading = false;
-          this.requirements = this.requirements.concat(data.map(req => new Requirement().clone(req)));
-          this.alertService.success('File uploaded correctly!');
-        },
-        error => {
-          this.alertService.error('Error uploading the file!');
-          console.error(error);
-          this.uploadLoading = false;
-        }
-      );
-
-    }
   }
 
   getRowClass(req) {
@@ -111,9 +96,9 @@ export class RequirementsTabComponent implements OnInit {
     reqs.forEach(req => {
       this.requirementService.deleteRequirement(req.id).subscribe(
         response => {
-          const index = this.requirements.findIndex(r => r.id === req.id);
+          const index = this._project.requirements.findIndex(r => r.id === req.id);
           if (index >= 0) {
-            this.requirements.splice(index, 1);
+            this._project.requirements.splice(index, 1);
           }
           loaded++;
           if (loaded === reqs.length) {
@@ -131,7 +116,7 @@ export class RequirementsTabComponent implements OnInit {
     const val = this.searchValue.toLowerCase();
 
     // filter our data
-    const temp = this.requirements.filter(function(req) {
+    const temp = this._project.requirements.filter(function(req) {
       return req.text.toLowerCase().indexOf(val) !== -1 || !val;
     });
 

@@ -62,6 +62,16 @@ export class ProjectService {
       );
   }
 
+  /** PUT edit project */
+  editProject(project: Project): Observable<HttpResponse<Project>> {
+    return this.http.put<Project>(this.projectsUrl, project, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      observe: 'response'})
+      .pipe(
+        catchError(this.handleError('editProject', null))
+      );
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.

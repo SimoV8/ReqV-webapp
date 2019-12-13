@@ -7,9 +7,8 @@
 
 <div class="row tab-header">
   <div class="col-10 pl-0">
-    <div class="hidden"><input type="file" #fileInput (change)="fileChange($event)"/></div>
 
-    <div class="btn-group" role="group" aria-label="Basic example">
+    <div class="btn-group" role="group">
       <button type="button" class="btn btn-secondary" (click)="disableSelected(false)"
               [disabled]="selected.length == 0">
         <i class="fa fa-check"></i>&nbsp;Enable
@@ -25,19 +24,12 @@
     </div>
 
 
-    <a routerLink="/projects/{{projectId}}/addReq">
+    <a routerLink="/projects/{{_project.id}}/addReq">
       <button type="button" class="btn btn-outline-primary" [disabled]="uploadLoading">
         <i class="fa fa-plus" aria-hidden="true"></i>
         &nbsp;Add Requirement
       </button>
     </a>
-
-    <button type="button" class="btn btn-outline-primary" (click)="fileInput.click()"
-            [disabled]="uploadLoading">
-      <i class="fa fa-upload" aria-hidden="true" *ngIf="!uploadLoading"></i>
-      <i class='fa fa-spinner fa-spin' *ngIf="uploadLoading"></i>
-      &nbsp;Upload File
-    </button>
   </div>
   <div class="col-2 pr-0">
 
